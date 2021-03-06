@@ -1,0 +1,82 @@
+Analysis.txt
+Laurie Jones
+
+Elements of Learning: 
+The target function is a function that accurately matches the images from the input
+and classifies them under the lables of one of the lables. 
+
+The training data is train_imgs and train_labels.
+
+The hypothesis set is any smooth, non-linear function.
+
+The learning algorithm is a feed forward neural network. 
+
+The final hypothesis is an idnetificaiton of the clothing on the the image that is input. 
+
+
+Summary: 
+First the fasion data is importated using keras. They are then broken up into the training data
+and the testing data. Then they are scalled to values between 0 and 1, to make it easier to read
+for the network. Then i used he_normalization to randomly initialize the weights of the network.
+I then created a list to be used as the class names. This helps me to visualize
+the classification. Then when making my model i used the keras Sequential model. This allowed me 
+stack the layers and provide Batch Normalization on all of them and specify the momentum and for
+dense hidden layers. I initialize the input shape of the images to 28x28 to insure a solid analysis. 
+I also at the end of the network include a softmax layer. Then i print the model summary so that i 
+can visual the model. THen i intialize the stohastic gradient descent with the learning rate and 
+that gradient clipping is being used. "clip norm" shows the normalization that the gradient is c
+lipped around. The model is then run with 200 epochs Then the accuracy is calculated with the test set
+and then printed. 
+
+
+Class Concepts: 
+stochastic gradient descent:his loss function works by calculating the derivative from each training data 
+    instance and calculating the update immediately. This helps to minimize the valleys that the gradient
+    descent might get caught in. Here it is specifically used to optimize the log-loss function for optimal 
+    identification. 
+
+batch normalization:applies a transformation that maintains the mean output close to 0 and the 
+    output standard deviation close to 1. It also works differently in trianing than
+    during inference. During training, it normalizes its output using the mean and 
+    standard deviation of the current inputs. Then during inference it normalizes its 
+    output using a moving average of the mean and standard deviation of the batches it 
+    has seen during training.
+
+momentum: It allows the gradient to go over and skip local
+    minimums. This allows the gradient to more likely go into a global minimum. 
+
+he_normal weight initialization: the random initialization of the weights but based on the size of the
+    previous layer. This helps in attaing a glocbl minimum faster. 
+
+ELU activation function: the input values don't map to extrmemly
+    small output values because it produces negative outputs. This helps change the weights 
+    in the right direction quicker. It also produces activations instead of letting
+    them be zero when calculating the gradient. This all in turn helps to take 
+    care of the vanishing gradient problem. 
+
+gradient clipping: a technique that tackle exploding gradients. If it gets too big, it is stopped 
+and rescaled to be kept small. 
+
+sparse_categorical_crossentropy: this is the cross entropy loss function when there are classes/lables that are
+    mutually exclusive.
+
+softmax output layer: assigns decimal probabilities to each class in a multi-class problem. Those decimal 
+probabilities must add up to 1.0. This additional constraint helps training converge more quickly than it 
+otherwise would. 
+
+
+Websites:
+https://medium.com/@ipylypenko/exploring-neural-networks-with-fashion-mnist-b0a8214b7b7b
+https://github.com/codingyogini/TensorFlow-NNs/blob/master/NN_MNIST_depth.ipynb
+https://sanjayasubedi.com.np/deeplearning/tensorflow-2-first-neural-network-for-fashion-mnist/
+https://keras.io/guides/sequential_model/
+https://www.tensorflow.org/guide/keras/train_and_evaluate
+https://keras.io/api/optimizers/sgd/
+https://machinelearningmastery.com/understand-the-dynamics-of-learning-rate-on-deep-learning-neural-networks/
+https://keras.io/api/layers/activations/
+https://towardsdatascience.com/batch-normalization-in-neural-networks-code-d7c9b88da9f5
+https://www.tensorflow.org/api_docs/python/tf/keras/initializers/HeNormal
+https://keras.io/search.html?query=gradient%20clipping
+https://keras.io/examples/generative/wgan_gp/
+https://developers.google.com/machine-learning/crash-course/multi-class-neural-networks/softmax
+https://towardsdatascience.com/what-is-gradient-clipping-b8e815cdfb48

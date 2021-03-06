@@ -1,0 +1,47 @@
+Questions.txt
+Laurie Jones
+
+Questions.txt
+Laurie Jones
+
+
+1. What does momentum do?
+    momentum speeds up training. It allows the gradient to go over and skip local
+    minimums. This allows the gradient to more likely go into a global minimum. 
+
+2. What is a he_normal weight initialization and why use it?
+    this is the random initialization of the weights but based on the size of the
+    previous layer. This helps in attaing a glocbl minimum faster. 
+
+3. Why use the elu activation function? What benefit does it have?
+    elu is the "exponential linear unit". The input values don't map to extrmemly
+    small output values. produces negative outputs. This helps change the weights 
+    in the right direction quicker. It also produces activations instead of letting
+    them be zero when calculating the gradient. This all in turn helps to take 
+    care of the vanishing gradient problem. 
+
+4. What is sparse categorical cross entropy?
+    this is the cross entropy loss function when there are classes/lables that are
+    mutually exclusive. 
+
+5. What is batch normalization accomplishing?
+    It applies a transformation that maintains the mean output close to 0 and the 
+    output standard deviation close to 1. It also works differently in trianing than
+    during inference. During training, it normalizes its output using the mean and 
+    standard deviation of the current inputs. Then during inference it normalizes its 
+    output using a moving average of the mean and standard deviation of the batches it 
+    has seen during training. 
+    it works to solve the problem of internal covariate shift. This is he change in the 
+    distribution of network activations due to the change in network parameters during 
+    training. THis is reall bad for NN especially DNN 
+
+6 What was the accuracy and loss of your model?
+    Loss: 0.5289802551269531
+    Accuracy: 0.8916000127792358
+
+websites:
+https://prateekvishnu.medium.com/xavier-and-he-normal-he-et-al-initialization-8e3d7a087528
+https://mlfromscratch.com/activation-functions-explained/#/
+https://datascience.stackexchange.com/questions/41921/sparse-categorical-crossentropy-vs-categorical-crossentropy-keras-accuracy
+https://keras.io/api/layers/normalization_layers/batch_normalization/
+https://www.machinecurve.com/index.php/2020/01/15/how-to-use-batch-normalization-with-keras/
