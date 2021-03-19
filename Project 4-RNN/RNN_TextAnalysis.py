@@ -150,5 +150,3 @@ embedding_dim = 100
 #Print the first example of the tokenizer object to the sequences to text
 
 
-
-
