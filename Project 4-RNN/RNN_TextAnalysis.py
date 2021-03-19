@@ -8,19 +8,22 @@ https://datatofish.com/count-nan-pandas-dataframe/
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.count.html
 https://www.kite.com/python/answers/how-to-drop-empty-rows-from-a-pandas-dataframe-in-python
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html
-https://pypi.org/project/series/
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.replace.html
+https://docs.python.org/3/library/re.html#re.sub
+
+
 """
 import numpy as np 
 import pandas as pd 
 import matplotlib.pyplot as plt
 import re
-#imported series seperatly
-import series
 import nltk
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import Tokenizer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+#new import
+import series
 
 #Read in csv file into pandas data frame
 data = pd.read_csv("consumer_complaints.csv")
@@ -48,57 +51,91 @@ new_data = new_data.reset_index(drop = True)
 #drop the indexes 
 #idk how to do this atm ---------------------------------------
 
+
 #Recount product values
 total_product_values = len(new_data)
 print("We have", total_product_values, "product values.")
 
 
-#currently working on converting the text to lower case
 
 
-new_data = new_data.str.lower()
 
 
-print(new_data.head)
+print(new_data.head())
 
 #Create a clean text function
 def clean_text(new_data):
     
     #Lower case the text
-    
-    
+    new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].str.lower()
+    new_data["product"] = new_data["product"].str.lower()
     
     #Compile pattern to remove all other characters
+    pattern = re.compile(r"[,.\"!@#$%^&*(){}?/;`~:<>+=-]")    
+    new_data = new_data.replace("[,.\"!@#$%^&*(){}?/;`~:<>+=-]","",regex=True).astype(str)
     
     #Sub the regular expresion with a "" character.
+    #I dont really know what a regular expression is or what pattern we are looking for
+
+    #re.sub(pattern, repl, string, count=0, flags=0)
+
+
     
     #Remove x from the text characters with a "" character.
+    new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].str.replace("x", "")
+    new_data["product"] = new_data["product"].str.replace("x", "")
+
+
     
     #Split the text
+    #how are we suspose to split the text?
+    
     
     #For each word check if its a word and its an alphanumeric
+    new_data["consumer_complaint_narrative"].str.isalnum()
+    new_data["product"].str.isalnum()
+
     
     #Remove all english stop words
+    stop_words = set(stopwords.words("english"))
+
     
     #Check if each word in the text and add the ones not in stop words
     
+
+    
     #Join all the text by " "
+    
+
     
     #Return the clean text
     pass
 
+
+
 #Apply clean text to the complaints
+
+# ----- we just need to apply this to the complaints column
+
 
 
 #Define maximum number of words in our vocabulary to 50000
+vocab_size = 50000
 
 #Define maximum number of words within each complaint document to 250
 
+
 #Define maximum number of words within each embedding to 100
+embedding_dim = 100
+
 
 #Implement Tokenizer object with num_words, filters, lower, split, and char_level
+#token = (word_token(new_data["consumer_complaint_narrative"]))
+
+
 
 #Fit Tokenizer object on the text
+
 
 #Get the word index from tokenizer object
 
@@ -111,4 +148,7 @@ def clean_text(new_data):
 #Print the shape of the data
 
 #Print the first example of the tokenizer object to the sequences to text
+
+
+
 
