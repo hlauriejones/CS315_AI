@@ -12,6 +12,9 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.repl
 https://docs.python.org/3/library/re.html#re.sub
 
 
+Get function working
+
+
 """
 import numpy as np 
 import pandas as pd 
@@ -56,15 +59,15 @@ new_data = new_data.reset_index(drop = True)
 total_product_values = len(new_data)
 print("We have", total_product_values, "product values.")
 
+#we need to somehow pass in new_data["consumer_complaint_narrative"] into the function below
+column = "consumer_complaint_narrative"
+data = "new_data[column]"
 
 
-
-
-
-print(new_data.head())
+#print("before the function: ---------- ", new_data.head())
 
 #Create a clean text function
-def clean_text(new_data):
+def clean_text(data):
     
     #Lower case the text
     new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].str.lower()
@@ -114,6 +117,11 @@ def clean_text(new_data):
 
 
 #Apply clean text to the complaints
+#new_data["consumer_complaint_narrative"] = clean_text(new_data["consumer_complaint_narrative"])
+
+#new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].str.lower()
+
+#print("after the function: ---------- ", new_data.head())
 
 # ----- we just need to apply this to the complaints column
 
