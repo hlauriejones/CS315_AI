@@ -1,6 +1,9 @@
 CSCI 315 – Assignment 4
+
 Laurie Jones and James Lawson
+
 Monday, March 22nd 2021
+
 Deep Recurrent Neural Network
 
 
