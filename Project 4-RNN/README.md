@@ -9,7 +9,8 @@ All I want the readme to do is tell me why you need to do these eight steps and 
 
 
 We completed the following 8 steps that make up the preprocessing process:
-  \n 1: hello
+
+1: hello
 
 
 
