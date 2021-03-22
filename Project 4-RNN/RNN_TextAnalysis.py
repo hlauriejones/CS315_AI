@@ -66,6 +66,8 @@ data = "new_data[column]"
 
 #print("before the function: ---------- ", new_data.head())
 
+print("hello")
+
 #Create a clean text function
 def clean_text(data):
     
