@@ -12,7 +12,11 @@ We completed the following 8 steps that make up the preprocessing process:
 
 1: Removing null or meaningless datapoints.
 
+We had to remove all null and meaningless datapoints
+
 2: Making all the data all lower case.
+
+We want tose words to count the same......
 
 3: Removing symbols, punctuation, brackets, parenthesis and special characters.
 
