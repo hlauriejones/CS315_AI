@@ -14,9 +14,7 @@ https://www.geeksforgeeks.org/regular-expression-python-examples-set-1/
 https://docs.python.org/3/howto/regex.html
 https://docs.python.org/3/library/re.html#re.compile
 https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/text/Tokenizer
-
-Get function working
-
+https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/sequence/pad_sequences
 
 """
 import numpy as np 
@@ -73,29 +71,18 @@ def clean_text(data):
     
     #Lower case the text
     new_data = data.lower()
-    # print("lower")
-    #print(new_data)
     
     #Compile pattern to remove all other characters
     pattern = re.compile(r"[,'_.\"!@#$%^&*(){}?/;`~:<>+=-]")  #added an underscore and apostrophy, might want to get rid of that
 
     #Sub the regular expresion with a "" character.
     new_data = re.sub(pattern, "", str(new_data))
-    # print("characters")
-    #print(new_data)
 
     #Remove repetative x's from the text characters with a "" character.
     new_data = re.sub(r"xx+", "", str(new_data))   #had weird space in it now
-    # print("delete x")
-    # print(len(new_data))
-    #print(new_data)
     
     #Split the text
     new_data = new_data.split()    #split and loss ALOT of numbers
-    # print(len(splitData))
-    # print("split")
-    # print(splitData)
-    # print(type(splitData))
 
     # # #For each word check if its a word and its an alphanumeric
     # print("checking for alphanumeric")
@@ -109,9 +96,6 @@ def clean_text(data):
     #         splitData.remove(splitData[i]) #it runs out range??
 
     new_data[:] = [x for x in new_data if x.isalnum()]
-    #print(new_data)
-    # print("done")
-
     
     #Remove all english stop words
     stop_words = set(stopwords.words("english"))  
@@ -122,18 +106,9 @@ def clean_text(data):
         if w not in stop_words:  
             data.append(w)
     
-    # print(new_data)
-    # print("data")
-    # print(data)
-    # print("Stop words")
-    
     #Join all the text by " "
     seperator = " "
     new_data = seperator.join(data)
-    # print(new_data)
-    # print("joined")
-    
-
     
     #Return the clean text
     return new_data
@@ -143,7 +118,7 @@ def clean_text(data):
 #Apply clean text to the complaints
 print("cleaning...")
 new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].apply(clean_text)
-print("after the function: ---------- ", new_data.head())
+print("done cleaning...")
 
 
 #Define maximum number of words in our vocabulary to 50000
@@ -158,33 +133,31 @@ embedding_dim = 100
 #Implement Tokenizer object with num_words, filters, lower, split, and char_level
 tokenizer = Tokenizer(
     num_words = vocab_size, #the maximum number of words to keep, based on word frequency.
-    filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
-    lower= True,        # Whether to convert the texts to lowercase.
-    split= " ",         # Separator for word splitting. 
-    char_level=False, # every character will be treated as a token.
+    filters ='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
+    lower = True,        # Whether to convert the texts to lowercase.
+    split = " ",         # Separator for word splitting. 
+    char_level = False, # every character will be treated as a token.
 )
 
 #Fit Tokenizer object on the text
-tokenizer.fit_on_texts(new_data)
+tokenizer.fit_on_texts(new_data["consumer_complaint_narrative"])
 
 #Get the word index from tokenizer object
-word_index = tokenizer.word_index #complaint and narritive are two different tokens
-#print("word index", word_index) #word index {'consumer': 1, 'complaint': 2, 'narrative': 3, 'product': 4}
+word_index = tokenizer.word_index #tokens for complaint
+#print("word index", word_index)
 
 #Print number of unique tokens found
-#uniqueWords = set(text_to_word_sequence(str(new_data))) #this is 80 words but it seemed sketch
-uniqueWords = text_to_word_sequence(str(new_data))
-vocab_size = len(uniqueWords)
-#print(uniqueWords)
-# print(str(new_data))
-print(vocab_size)
+print("The number of unique tokens found is: ", len(word_index))
 
 #Get a text to sequences representation of the complaints
+sequences = tokenizer.texts_to_sequences(new_data["consumer_complaint_narrative"])
 
 #Pad the sequences with the max length
+padded = pad_sequences(sequences, maxlen = max_complaint_size)
 
 #Print the shape of the data
+print("The shape of our data is: ", padded.shape)
 
 #Print the first example of the tokenizer object to the sequences to text
-
+print("The first example of a text to sequences representation of the complaints is: ", sequences[0])
 
