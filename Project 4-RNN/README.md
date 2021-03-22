@@ -9,6 +9,7 @@ All I want the readme to do is tell me why you need to do these eight steps and 
 
 
 We completed the following 8 steps that make up the preprocessing process:
+
 1: Removing null or meaningless datapoints.
 
 2: Making all the data all lower case.
