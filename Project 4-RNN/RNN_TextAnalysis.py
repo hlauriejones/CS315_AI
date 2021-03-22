@@ -3,6 +3,8 @@ Authors: Laurie Jones and James Lawson
 
 
 Links:
+https://keras.io/api/
+https://www.tensorflow.org/guide/keras/rnn
 https://www.kite.com/python/answers/how-to-copy-columns-to-a-new-pandas-dataframe-in-python
 https://datatofish.com/count-nan-pandas-dataframe/
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.count.html
@@ -46,7 +48,6 @@ print("We have", str(nullCounts), "null values.")
 
 #Check how many product values we have
 productValue = new_data["product"].count()
-
 print("We have", productValue, "product values.")
 
 #Drop all empty values, reset the index, and drop them
@@ -60,11 +61,6 @@ new_data.reset_index(drop=True, inplace=True)
 total_product_values = len(new_data)
 print("We have", total_product_values, "product values.")
 
-#we need to somehow pass in new_data["consumer_complaint_narrative"] into the function below
-column = "consumer_complaint_narrative"
-data = "new_data[column]"
-
-#print("before the function: ---------- ", new_data.head())
 
 #Create a clean text function
 def clean_text(data):
@@ -113,13 +109,10 @@ def clean_text(data):
     #Return the clean text
     return new_data
 
-
-
 #Apply clean text to the complaints
 print("cleaning...")
 new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].apply(clean_text)
 print("done cleaning...")
-
 
 #Define maximum number of words in our vocabulary to 50000
 vocab_size = 50000
@@ -144,7 +137,6 @@ tokenizer.fit_on_texts(new_data["consumer_complaint_narrative"])
 
 #Get the word index from tokenizer object
 word_index = tokenizer.word_index #tokens for complaint
-#print("word index", word_index)
 
 #Print number of unique tokens found
 print("The number of unique tokens found is: ", len(word_index))
