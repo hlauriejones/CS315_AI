@@ -27,6 +27,7 @@ import nltk
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import Tokenizer
 from nltk.tokenize import word_tokenize
+from tensorflow.keras.preprocessing.text import text_to_word_sequence
 from nltk.corpus import stopwords
 import re
 
@@ -97,20 +98,39 @@ def clean_text(data):
     # print(type(splitData))
 
     # # #For each word check if its a word and its an alphanumeric
-    new_data[:] = [x for x in new_data if not x.isalnum()]
+    # print("checking for alphanumeric")
+    # for i in range(len(splitData)):
+    #     #print("hi")
+    #     #print(splitData[i])
+    #     if splitData[i].isalnum() == False:
+    #         print("Problem")
+    #         print(splitData[i])
+    #         #can just remove them here 
+    #         splitData.remove(splitData[i]) #it runs out range??
 
+    new_data[:] = [x for x in new_data if x.isalnum()]
+    #print(new_data)
+    # print("done")
+
+    
     #Remove all english stop words
     stop_words = set(stopwords.words("english"))  
     
     #Check if each word in the text and add the ones not in stop words
-    new_data = []
+    data = []
     for w in new_data:  
         if w not in stop_words:  
-            new_data.append(w)
+            data.append(w)
+    
+    # print(new_data)
+    # print("data")
+    # print(data)
+    # print("Stop words")
     
     #Join all the text by " "
     seperator = " "
-    new_data = seperator.join(new_data)
+    new_data = seperator.join(data)
+    # print(new_data)
     # print("joined")
     
 
@@ -145,16 +165,19 @@ tokenizer = Tokenizer(
 )
 
 #Fit Tokenizer object on the text
-# fit_on_texts(
-#     texts
-# )
 tokenizer.fit_on_texts(new_data)
 
-
 #Get the word index from tokenizer object
-# word_index = t.word_index
+word_index = tokenizer.word_index #complaint and narritive are two different tokens
+#print("word index", word_index) #word index {'consumer': 1, 'complaint': 2, 'narrative': 3, 'product': 4}
 
 #Print number of unique tokens found
+#uniqueWords = set(text_to_word_sequence(str(new_data))) #this is 80 words but it seemed sketch
+uniqueWords = text_to_word_sequence(str(new_data))
+vocab_size = len(uniqueWords)
+#print(uniqueWords)
+# print(str(new_data))
+print(vocab_size)
 
 #Get a text to sequences representation of the complaints
 
