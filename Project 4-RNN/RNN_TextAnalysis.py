@@ -13,6 +13,7 @@ https://docs.python.org/3/library/re.html#re.sub
 https://www.geeksforgeeks.org/regular-expression-python-examples-set-1/
 https://docs.python.org/3/howto/regex.html
 https://docs.python.org/3/library/re.html#re.compile
+https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/text/Tokenizer
 
 Get function working
 
@@ -70,58 +71,47 @@ data = "new_data[column]"
 def clean_text(data):
     
     #Lower case the text
-    new_data = data.str.lower()
-    print("lower")
+    new_data = data.lower()
+    # print("lower")
     #print(new_data)
     
     #Compile pattern to remove all other characters
-    pattern = re.compile(r"[,_.\"!@#$%^&*(){}?/;`~:<>+=-]")  #added an underscore, might want to get rid of that
+    pattern = re.compile(r"[,'_.\"!@#$%^&*(){}?/;`~:<>+=-]")  #added an underscore and apostrophy, might want to get rid of that
 
     #Sub the regular expresion with a "" character.
     new_data = re.sub(pattern, "", str(new_data))
-    print("characters")
+    # print("characters")
     #print(new_data)
 
-    #Remove x from the text characters with a "" character.
-    new_data = re.sub(r"x", "", str(new_data))   #had weird space in it now
-    print("delete x")
-    #print(len(new_data))
+    #Remove repetative x's from the text characters with a "" character.
+    new_data = re.sub(r"xx+", "", str(new_data))   #had weird space in it now
+    # print("delete x")
+    # print(len(new_data))
     #print(new_data)
     
     #Split the text
-    splitData = new_data.split()    #split and loss ALOT of numbers
-    #print(len(splitData))
-    print("split")
-    # #print(splitData)
-    # # print(type(splitData))
+    new_data = new_data.split()    #split and loss ALOT of numbers
+    # print(len(splitData))
+    # print("split")
+    # print(splitData)
+    # print(type(splitData))
 
-    # #For each word check if its a word and its an alphanumeric
-    print("checking for alphanumeric")
-    for i in range(len(splitData)):
-        #print("hi")
-        #print(splitData[i])
-        if splitData[i].isalnum() == False:
-            print("Problem")
-            print(splitData[i])
-    print("done")
+    # # #For each word check if its a word and its an alphanumeric
+    new_data[:] = [x for x in new_data if not x.isalnum()]
 
-    
     #Remove all english stop words
     stop_words = set(stopwords.words("english"))  
     
     #Check if each word in the text and add the ones not in stop words
     new_data = []
-
-    for w in splitData:  
+    for w in new_data:  
         if w not in stop_words:  
             new_data.append(w)
-    
-    print("Stop words")
     
     #Join all the text by " "
     seperator = " "
     new_data = seperator.join(new_data)
-    print("joined")
+    # print("joined")
     
 
     
@@ -130,11 +120,9 @@ def clean_text(data):
 
 
 
-
-
-
 #Apply clean text to the complaints
-new_data["consumer_complaint_narrative"] = clean_text(new_data["consumer_complaint_narrative"])
+print("cleaning...")
+new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].apply(clean_text)
 print("after the function: ---------- ", new_data.head())
 
 
@@ -147,15 +135,24 @@ max_complaint_size = 250
 #Define maximum number of words within each embedding to 100
 embedding_dim = 100
 
-
 #Implement Tokenizer object with num_words, filters, lower, split, and char_level
-#token = (word_token(new_data["consumer_complaint_narrative"]))
-
+tokenizer = Tokenizer(
+    num_words = vocab_size, #the maximum number of words to keep, based on word frequency.
+    filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
+    lower= True,        # Whether to convert the texts to lowercase.
+    split= " ",         # Separator for word splitting. 
+    char_level=False, # every character will be treated as a token.
+)
 
 #Fit Tokenizer object on the text
+# fit_on_texts(
+#     texts
+# )
+tokenizer.fit_on_texts(new_data)
 
 
 #Get the word index from tokenizer object
+# word_index = t.word_index
 
 #Print number of unique tokens found
 
