@@ -9,8 +9,14 @@ All I want the readme to do is tell me why you need to do these eight steps and 
 
 
 We completed the following 8 steps that make up the preprocessing process:
-
-1: hello
+1: Removing null or meaningless datapoints.
+2: Making all the data all lower case.
+3: Removing symbols, punctuation, brackets, parenthesis and special characters.
+4: Removing repetitive and meaningless characters.
+5: Removing stop words.
+6: Tokenize the remaining natural language.
+7: Transform the language into a numerical representation.
+8: Pad those embeddings so taht all input is the same length.
 
 
 
