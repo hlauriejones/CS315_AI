@@ -1,22 +1,6 @@
 """
+RNN_TextAnalysis.py
 Authors: Laurie Jones and James Lawson
-
-
-Links:
-https://keras.io/api/
-https://www.tensorflow.org/guide/keras/rnn
-https://www.kite.com/python/answers/how-to-copy-columns-to-a-new-pandas-dataframe-in-python
-https://datatofish.com/count-nan-pandas-dataframe/
-https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.count.html
-https://www.kite.com/python/answers/how-to-drop-empty-rows-from-a-pandas-dataframe-in-python
-https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html
-https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.replace.html
-https://docs.python.org/3/library/re.html#re.sub
-https://www.geeksforgeeks.org/regular-expression-python-examples-set-1/
-https://docs.python.org/3/howto/regex.html
-https://docs.python.org/3/library/re.html#re.compile
-https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/text/Tokenizer
-https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/sequence/pad_sequences
 
 """
 import numpy as np 
@@ -69,28 +53,18 @@ def clean_text(data):
     new_data = data.lower()
     
     #Compile pattern to remove all other characters
-    pattern = re.compile(r"[,'_.\"!@#$%^&*(){}?/;`~:<>+=-]")  #added an underscore and apostrophy, might want to get rid of that
+    pattern = re.compile(r"[,'_.\"!@#$%^&*(){}?/;`~:<>+=-]") 
 
     #Sub the regular expresion with a "" character.
     new_data = re.sub(pattern, "", str(new_data))
 
     #Remove repetative x's from the text characters with a "" character.
-    new_data = re.sub(r"xx+", "", str(new_data))   #had weird space in it now
+    new_data = re.sub(r"xx+", "", str(new_data)) 
     
     #Split the text
-    new_data = new_data.split()    #split and loss ALOT of numbers
+    new_data = new_data.split()
 
-    # # #For each word check if its a word and its an alphanumeric
-    # print("checking for alphanumeric")
-    # for i in range(len(splitData)):
-    #     #print("hi")
-    #     #print(splitData[i])
-    #     if splitData[i].isalnum() == False:
-    #         print("Problem")
-    #         print(splitData[i])
-    #         #can just remove them here 
-    #         splitData.remove(splitData[i]) #it runs out range??
-
+    #For each word check if its a word and its an alphanumeric
     new_data[:] = [x for x in new_data if x.isalnum()]
     
     #Remove all english stop words
@@ -112,7 +86,7 @@ def clean_text(data):
 #Apply clean text to the complaints
 print("cleaning...")
 new_data["consumer_complaint_narrative"] = new_data["consumer_complaint_narrative"].apply(clean_text)
-print("done cleaning...")
+print("done cleaning")
 
 #Define maximum number of words in our vocabulary to 50000
 vocab_size = 50000
@@ -125,18 +99,18 @@ embedding_dim = 100
 
 #Implement Tokenizer object with num_words, filters, lower, split, and char_level
 tokenizer = Tokenizer(
-    num_words = vocab_size, #the maximum number of words to keep, based on word frequency.
+    num_words = vocab_size, 
     filters ='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
-    lower = True,        # Whether to convert the texts to lowercase.
-    split = " ",         # Separator for word splitting. 
-    char_level = False, # every character will be treated as a token.
+    lower = True,        
+    split = " ",         
+    char_level = False, 
 )
 
 #Fit Tokenizer object on the text
 tokenizer.fit_on_texts(new_data["consumer_complaint_narrative"])
 
 #Get the word index from tokenizer object
-word_index = tokenizer.word_index #tokens for complaint
+word_index = tokenizer.word_index
 
 #Print number of unique tokens found
 print("The number of unique tokens found is: ", len(word_index))
