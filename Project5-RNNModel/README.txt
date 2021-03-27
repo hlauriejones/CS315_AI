@@ -6,21 +6,22 @@ Assignment 5: Deep Recurrent Neural Network - Model
 5 Elements of Learning:
 
 1. Target function
-The target function maps input text to guess .
+The target function is the function that acurrately matches the complaintt to 
+the product that complaint is about.
 
 2. Training Data
 The dataset is a csv file of companies’ responses regarding the financial services
 provided by the United States.
 
 3. Hypothesis Set
-In a multi-layered perception, we have non-linear functions.
+In a multi-layered perception, the hypothesis set is any smooth, non-linear 
+function.
 
 4. Learning Algorithm
 The learning algorithm that we are using is a recurrent neural network.
 
 5. Final Hypothesis
-The final hypothesis is a prediction of which words come before and after our target 
-word????.
+The final hypothesis is the identification of the product the input complaint is about.
 
 
 General Description:
@@ -103,14 +104,11 @@ Finallly, we graphed our loss over time and our accuracy over time for the train
 Detailed description of the class concepts implemented in the project: 
 RNN- a feed forward inspired neural network with recurrent layers. These layers have neurons that represent the accumulating
     state of the network instance- also thought of as memory. It is very good for things like sequential identificaiton and 
-    prediction. 
+    prediction.
 Sequential Data- data where the input is independent and identiticlaly distributed. 
 Tokenization- when data, typically words are represented numerically and vectorized
 Embedding- a mapping of a discrete, categorical, variable to a vector of continuous numbers and in our instance low-dimensional, 
     learned continuous vector representations of discrete variables. 
-
-
-
 
 
 Resources:
