@@ -1,7 +1,9 @@
 README.md
 
 CSCI 315 – Assignment 4
+
 Laurie Jones and James Lawson
+
 March 22nd 2021 
 
 Summary:
