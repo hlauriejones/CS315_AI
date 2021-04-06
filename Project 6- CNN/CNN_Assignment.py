@@ -136,11 +136,11 @@ steps_per_epoch = len(train_data) / 64
 
 model.summary()
 
-final_model = model.fit_generator(batch,
-                                  steps_per_epoch = steps_per_epoch,
-                                  epochs = 1000,
-                                  validation_data = (test_data, test_labels),
-                                  callbacks = [early_stop])
+final_model = model.fit(batch,
+                        steps_per_epoch = steps_per_epoch,
+                        epochs = 200,
+                        validation_data = (test_data, test_labels),
+                        callbacks = [early_stop])
 
 test_results = model.evaluate(test_data, test_labels)
 
