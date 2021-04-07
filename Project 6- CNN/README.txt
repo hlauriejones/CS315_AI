@@ -29,7 +29,7 @@ Create one hot encoding vectors for y train and y test. This is necessary becaus
 
 Then we normalize the images because currently the numbers are large and representative of RGB values and we need to put them as as a spectrum between 0 and 1. 
 
-Then we create our model as a sequential model because an CNN looks at data in a sequential way. 
+Then we create our model as a sequential model because a CNN looks at data in a sequential way. 
 
 Then we create convolutional layers because we need to capture spatial and temporal dependencies in an image. A convolutional layer is a layer that applies a filter to the 
 Input result in a feature map. 
