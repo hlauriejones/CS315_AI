@@ -2,7 +2,7 @@ README.md
 
 CSCI 315 – Assignment 6 CNNs
 Laurie Jones and James Lawson
-April 3rd 2021 
+April 6th 2021 
 
 
 5 Elements of Learning:
