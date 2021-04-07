@@ -42,13 +42,13 @@ x_test = flatten(x_test)
 
 #Normalizing the data
 print("normalizing....")
-scaler = StandardScaler()
-scaler.fit(x_train)
-StandardScaler(copy=True, with_mean=True, with_std=True)
+scaler = StandardScaler() 
+scaler.fit(x_train) 
+StandardScaler(copy=True, with_mean=True, with_std=True) 
 x_train = scaler.transform(x_train)
 x_test = scaler.transform(x_test)
 
-#changing the type
+#changing the type because you need to fit it 
 print("changing type...")
 x_train = x_train.astype('int')
 y_train = y_train.astype('int')
